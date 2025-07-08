@@ -85,38 +85,56 @@ return {
             "--completion-style=detailed",
             "--function-arg-placeholders",
             "--fallback-style=llvm",
+            "--all-scopes-completion",
+            "--cross-file-rename",
+            "--log=verbose",
+            "--enable-config",
+            init_options = {
+              usePlaceholders = true,
+              completeUnimported = true,
+              clangdFileStatus = true,
+              semanticHighlighting = true,
+            },
+            capabilities = {
+              textDocument = {
+                completion = {
+                  completionItem = {
+                    snippetSupport = true,
+                    resolveSupport = {
+                      properties = { "documentation", "detail", "additionalTextEdits" },
+                    },
+                  },
+                  editsNearCursor = true,
+                },
+              },
+            },
+            filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
           },
-          init_options = {
-            usePlaceholders = true,
-            completeUnimported = true,
-            clangdFileStatus = true,
-          },
-          filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
         },
+        -- ts_ls = {
+        --   settings = {},
+        --   filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
+        --   inlayHints = {
+        --     includeInlayParameterNameHints = "all",
+        --     includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        --     includeInlayFunctionParameterTypeHints = true,
+        --     includeInlayVariableTypeHints = true,
+        --     includeInlayPropertyDeclarationTypeHints = true,
+        --     includeInlayFunctionLikeReturnTypeHints = true,
+        --     includeInlayEnumMemberValueHints = true,
+        --   },
+        --   suggest = {
+        --     completeFunctionCalls = true,
+        --   },
+        --   udpateImportsOnFileMove = { enabled = "always" },
+        --   setup = {
+        --     tsserver = function(_, opts)
+        --       require("typescript").setup({ server = opts })
+        --       return true -- Prevent lspconfig from setting up tsserver again
+        --     end,
+        --   },
+        -- },
       },
-      -- ts_ls = {
-      --   settings = {},
-      --   filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
-      --   inlayHints = {
-      --     includeInlayParameterNameHints = "all",
-      --     includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-      --     includeInlayFunctionParameterTypeHints = true,
-      --     includeInlayVariableTypeHints = true,
-      --     includeInlayPropertyDeclarationTypeHints = true,
-      --     includeInlayFunctionLikeReturnTypeHints = true,
-      --     includeInlayEnumMemberValueHints = true,
-      --   },
-      --   suggest = {
-      --     completeFunctionCalls = true,
-      --   },
-      --   udpateImportsOnFileMove = { enabled = "always" },
-      --   setup = {
-      --     tsserver = function(_, opts)
-      --       require("typescript").setup({ server = opts })
-      --       return true -- Prevent lspconfig from setting up tsserver again
-      --     end,
-      --   },
-      -- },
     },
   },
 }
